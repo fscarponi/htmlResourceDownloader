@@ -18,10 +18,10 @@ suspend fun main() = coroutineScope {
     runCatching {
         withContext(Dispatchers.IO) {
             val file = File("parameters.json")
-            if (file.exists()) file.delete()
-
-            file.createNewFile()
-            file.writeText(par.toJson())
+            if (!file.exists()) {
+                file.createNewFile()
+                file.writeText(par.toJson())
+            }
         }
     }
     val startTime = Instant.now()
